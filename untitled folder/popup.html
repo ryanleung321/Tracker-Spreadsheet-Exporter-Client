@@ -1,0 +1,55 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>Auto tab opener thing</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 100%;
+      }
+      #status {
+        /* avoid an excessively wide status text */
+        white-space: pre;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 1600px;
+      }
+    </style>
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+     <script src = "popup.js"></script>
+  </head>
+  <body>
+    <form method ="post" >
+      website url:
+      <input type = "text" name = "url"><br><br>
+      <select name="mydropdown">
+        <option value="Select a Day">select a day</option>
+        <option value="monday" name="day">monday</option>
+        <option value="tuesday" name="day">tuesday</option>
+        <option value="wednesday" name="day">wednesday</option>
+        <option value="thursday" name="day">thursday</option>
+        <option value="friday" name="day">friday</option> 
+      </select> <br><br>
+<!--      <input type="radio" name="day" value="monday" checked> Monday<br>
+      <input type="radio" name="day" value="tuesday" checked> Tuesday<br>
+      <input type="radio" name="day" value="wednesday" checked> Wednesday<br>
+      <input type="radio" name="day" value="thursday" checked> Thursday<br>
+      <input type="radio" name="day" value="friday" checked> Friday<br>
+      <input type="radio" name="day" value="saturday" checked> Saturday<br>
+      <input type="radio" name="day" value="sunday" checked> Sunday<br><br> -->
+      <input type="submit" value="Submit" name="submitButton">
+    </form>
+  </body>
+</html>
+
