@@ -8,6 +8,11 @@
     "default_title": "click me"
   },
 
+    "background":
+  {
+    "script": "background.js"
+  },
+
   "permissions": [
     "tabs", 
     "alarms", 
