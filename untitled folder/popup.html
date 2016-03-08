@@ -1,9 +1,5 @@
 <!doctype html>
-<!--
- This page is shown when the extension button is clicked, because the
- "browser_action" field in manifest.json contains the "default_popup" key with
- value "popup.html".
- -->
+
 <html>
   <head>
     <title>Auto tab opener thing</title>
@@ -12,44 +8,44 @@
         font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
         font-size: 100%;
       }
-      #status {
-        /* avoid an excessively wide status text */
+/*      #status {
         white-space: pre;
         text-overflow: ellipsis;
         overflow: hidden;
         max-width: 1600px;
-      }
+      }*/
     </style>
 
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
-     <script src = "popup.js"></script>
   </head>
   <body>
-    <form method ="post" >
-      website url:
-      <input type = "text" name = "url"><br><br>
-<!--       <select name="mydropdown">
-        <option value="Select a Day">select a day</option>
-        <option value="monday" name="day">monday</option>
-        <option value="tuesday" name="day">tuesday</option>
-        <option value="wednesday" name="day">wednesday</option>
-        <option value="thursday" name="day">thursday</option>
-        <option value="friday" name="day">friday</option> 
-      </select> <br><br> -->
-      <input type="checkbox" name="day" value="monday" > Monday<br>
-      <input type="checkbox" name="day" value="tuesday" > Tuesday<br>
-      <input type="checkbox" name="day" value="wednesday" > Wednesday<br>
-      <input type="checkbox" name="day" value="thursday" > Thursday<br>
-      <input type="checkbox" name="day" value="friday" > Friday<br>
-      <input type="checkbox" name="day" value="saturday" > Saturday<br>
-      <input type="checkbox" name="day" value="sunday" > Sunday<br><br>
-      <input type="submit" value="Submit" name="submitButton">
+    <form id="popupForm" >
+      Project Name:
+      <input type="text" id="projectName" name="projectName"><br><br>
+      Sheets URL:
+      <input type="text" id="sheetsURL" name="sheetsURL"><br><br>
+      Tracker URL:
+      <input type="text" id="trackerURL" name="trackerURL"><br><br>
+
+      <p>Days Active</p>
+      <input type="checkbox" class="dayCheckbox" id="sunday" name="sunday" value="sunday" > Sunday<br>
+      <input type="checkbox" class="dayCheckbox" id="monday" name="monday" value="monday" > Monday<br>
+      <input type="checkbox" class="dayCheckbox" id="tuesday" name="tuesday" value="tuesday" > Tuesday<br>
+      <input type="checkbox" class="dayCheckbox" id="wednesday" name="wednesday" value="wednesday" > Wednesday<br>
+      <input type="checkbox" class="dayCheckbox" id="thursday" name="thursday" value="thursday" > Thursday<br>
+      <input type="checkbox" class="dayCheckbox" id="friday" name="friday" value="friday" > Friday<br>
+      <input type="checkbox" class="dayCheckbox" id="saturday" name="saturday" value="saturday" > Saturday<br><br>
+      <button id="submitButton" type="button">Submit</button>   
+
+      <!-- debug tools -->
+
+      <p id="debugName">lol</p>
+      <p id="debugSheets">please</p>
+      <p id="debugTracker">help</p>
+      <p id="debugDays">me</p>
     </form>
+
+    <script language="javascript" src="popup.js"></script>
+  
   </body>
 </html>
 
