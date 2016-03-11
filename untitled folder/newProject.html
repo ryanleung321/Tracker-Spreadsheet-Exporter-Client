@@ -1,0 +1,53 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Auto tab opener thing</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 100%;
+      }
+      #status {
+        white-space: pre;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        max-width: 1600px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <form id="popupForm" >
+      Project Name:
+      <input type="text" id="projectName" name="projectName"><br><br>
+      Sheets URL:
+      <input type="text" id="sheetsURL" name="sheetsURL"><br><br>
+      Tracker URL:
+      <input type="text" id="trackerURL" name="trackerURL"><br><br>
+
+      <p>Days Active</p>
+      <input type="checkbox" class="dayCheckbox" id="sunday" name="sunday" value="sunday" > Sunday<br>
+      <input type="checkbox" class="dayCheckbox" id="monday" name="monday" value="monday" > Monday<br>
+      <input type="checkbox" class="dayCheckbox" id="tuesday" name="tuesday" value="tuesday" > Tuesday<br>
+      <input type="checkbox" class="dayCheckbox" id="wednesday" name="wednesday" value="wednesday" > Wednesday<br>
+      <input type="checkbox" class="dayCheckbox" id="thursday" name="thursday" value="thursday" > Thursday<br>
+      <input type="checkbox" class="dayCheckbox" id="friday" name="friday" value="friday" > Friday<br>
+      <input type="checkbox" class="dayCheckbox" id="saturday" name="saturday" value="saturday" > Saturday<br><br>
+      <button id="submitButton" type="button">Submit</button>   
+
+      <!-- debug tools -->
+
+      <p id="debugName">lol</p>
+      <p id="debugSheets">please</p>
+      <p id="debugTracker">help</p>
+      <p id="debugDays">me</p>
+    </form>
+
+
+    <button id="catalogueButton" type="button">Back to Catalogue</button>
+    <script language="javascript" src="js/newProject.js"></script>  
+
+  </body>
+</html>
+
