@@ -10,7 +10,29 @@ class project{
 	}
 }
 
+//append values to storage
+function appendToStorage(key, data){
+    var old = localStorage.getItem(key);
+    if(old === null) old = "";
+    localStorage.setItem(key, old + data);
+}
+
+//append values to an array stored in localStorage
+function appendToStoredArray(key, data){
+	var array = JSON.parse(localStorage.getItem(key));
+	array.push(data);
+	localStorage.setItem(key, JSON.stringify(array));
+	console.log(localStorage.getItem(key)); //should log json string of array
+}
+
+//invoked on submitButton click
 function addProject() {
+	//check for previous projectList entries, create one if none
+	if (localStorage.getItem('projectList') === null){
+		var arrayOfProjects = new Array();
+		localStorage.setItem('projectList', JSON.stringify(arrayOfProjects));
+	}
+
 	//pull values by ID from html form
 	var name = document.getElementById("projectName").value;
 	var sheetsURL = document.getElementById("sheetsURL").value;
@@ -19,7 +41,7 @@ function addProject() {
 	//get checkbox elements by class name
 	var inputElements = document.getElementsByClassName('dayCheckbox');
 
-	//new array 
+	//new array of days chosen
 	var dayArray = new Array();
 	for(var i=0; inputElements[i]; ++i){
 		if(inputElements[i].checked){
@@ -30,20 +52,25 @@ function addProject() {
       	}
 	}
 
+	//creating the project object
 	var newProject = new project(name, sheetsURL, trackerURL, dayArray);
 
+	//append new project to projectList array
+	appendToStoredArray('projectList', newProject);
 
-	//for debugging purposes
-	//set a value for debugging html
-	document.getElementById("debugName").innerHTML = name;
-	document.getElementById("debugSheets").innerHTML = sheetsURL;
-	document.getElementById("debugTracker").innerHTML = trackerURL;
-	document.getElementById("debugDays").innerHTML = dayArray;
-	console.log(newProject);
-
+	console.log(newProject); //should log newProject object
 }
 
-document.getElementById('submitButton').addEventListener('click', addProject);
+//runs addProject on click
+document.getElementById('submitButton').addEventListener('click', function(){
+	addProject();
+	window.location.href="popup.html";
+});
+
+//logs project list on load
+console.log(localStorage.getItem('projectList'));
+
+//brings you back to catalogue page
 document.getElementById('catalogueButton').addEventListener('click', function(){
 	window.location.href="popup.html";
 });
