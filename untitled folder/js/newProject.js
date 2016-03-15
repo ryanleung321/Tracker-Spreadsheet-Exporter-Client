@@ -27,12 +27,6 @@ function appendToStoredArray(key, data){
 
 //invoked on submitButton click
 function addProject() {
-	//check for previous projectList entries, create one if none
-	if (localStorage.getItem('projectList') === null){
-		var arrayOfProjects = new Array();
-		localStorage.setItem('projectList', JSON.stringify(arrayOfProjects));
-	}
-
 	//pull values by ID from html form
 	var name = document.getElementById("projectName").value;
 	var sheetsURL = document.getElementById("sheetsURL").value;
@@ -63,8 +57,23 @@ function addProject() {
 
 //runs addProject on click
 document.getElementById('submitButton').addEventListener('click', function(){
+	//check for previous projectList entries, create one if none
+	if (localStorage.getItem('projectList') === null){
+		var arrayOfProjects = new Array();
+		localStorage.setItem('projectList', JSON.stringify(arrayOfProjects));
+	}
+	//check for length of array before addition
+	var oldlength = (JSON.parse(localStorage.getItem('projectList'))).length;
 	addProject();
-	window.location.href="popup.html";
+	//check for length of array after addition
+	var newlength = (JSON.parse(localStorage.getItem('projectList'))).length;
+
+	//successful if new array contains more entries
+	if (newlength > oldlength){
+		alert("NEW PROJECT SUCCESSFULLY ADDED");
+		window.location.href="popup.html";
+	}
+	else alert("failed");
 });
 
 //logs project list on load

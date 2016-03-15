@@ -16,29 +16,64 @@ console.log(localStorage.getItem('projectList'));
 
 var catologueArray = JSON.parse(localStorage.getItem('projectList'));
 
+//display message for no saved projects
 if (catologueArray === null) {
 	document.getElementById("tester").innerHTML = "No Projects Currently Saved";
 }
 
-function makeUL(array) {
-    // Create the list element:
-    var list = document.createElement('ul');
-    list.style.listStyleType = "none";
+function makeForm(array){
+	//create the form element
+	var form = document.createElement('form');
 
-    for(var i = 0; i < array.length; i++) {
-        // Create the list item:
-        var item = document.createElement('li');
+	for(var i = 0; i < array.length; i++){
+		//create the input item
+		var radio = document.createElement('input');
 
-        // Set its contents:
-        item.appendChild(document.createTextNode(array[i].name));
+		//set radio button attributes
+		radio.setAttribute('type', 'radio');
+		radio.setAttribute('value', 'radio');
+		radio.setAttribute('name', 'radio');
 
-        // Add it to the list:
-        list.appendChild(item);
-    }
+		//group the buttons into a class
+		radio.setAttribute('class', 'savedProjects');
 
-    // Finally, return the constructed list:
-    return list;
+		//assign its value as the current array entry
+		radio.setAttribute('value', i);
+
+		//set the label to be added 
+		var label = document.createElement('label');
+		//append radio button to label
+		label.appendChild(radio);
+		//assign text to the label
+		label.appendChild(document.createTextNode(array[i].name));
+
+		//create a linebreak element
+		linebreak = document.createElement("br");
+		//append to the end of the label
+		label.appendChild(linebreak)
+
+		//Add to the form
+		form.appendChild(label);
+	}
+
+	return form;
 }
 
-// Add the contents of options[0] to #foo:
-document.getElementById('testing').appendChild(makeUL(catologueArray));
+document.getElementById('tester').appendChild(makeForm(catologueArray));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
