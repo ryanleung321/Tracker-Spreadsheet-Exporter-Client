@@ -71,7 +71,7 @@ document.getElementById('submitButton').addEventListener('click', function(){
 	//successful if new array contains more entries
 	if (newlength > oldlength){
 		alert("NEW PROJECT SUCCESSFULLY ADDED");
-		window.location.href="popup.html";
+		window.location.href="newProject.html";
 	}
 	else alert("failed");
 });

@@ -8,19 +8,16 @@ class project{
 	}
 }
 
-document.getElementById('newProject').addEventListener('click', function(){
-	window.location.href="newProject.html";
-});
-
-console.log(localStorage.getItem('projectList'));
-
-var catologueArray = JSON.parse(localStorage.getItem('projectList'));
-
-//display message for no saved projects
-if (catologueArray === null) {
-	document.getElementById("tester").innerHTML = "No Projects Currently Saved";
+function getSelected(){
+	var inputElements = document.getElementsByClassName('savedProjects');
+	
 }
 
+function openProject(project){
+
+}
+
+//generates the form element
 function makeForm(array){
 	//create the form element
 	var form = document.createElement('form');
@@ -58,6 +55,25 @@ function makeForm(array){
 
 	return form;
 }
+
+document.getElementById('newProject').addEventListener('click', function(){
+	// window.location.href="newProject.html";
+	chrome.tabs.create({url: chrome.extension.getURL('newProject.html')});
+});
+
+document.getElementById('openProject').addEventListener('click', function(){
+
+});
+
+console.log(localStorage.getItem('projectList'));
+
+var catologueArray = JSON.parse(localStorage.getItem('projectList'));
+
+//display message for no saved projects
+if (catologueArray === null) {
+	document.getElementById("tester").innerHTML = "No Projects Currently Saved";
+}
+
 
 document.getElementById('tester').appendChild(makeForm(catologueArray));
 
