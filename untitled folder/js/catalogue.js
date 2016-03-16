@@ -8,10 +8,12 @@ class project{
 	}
 }
 
-function getSelected(){
+//return selected project 
+function getSelectedProject(){
 	//create an array of all the input elements
 	var inputElements = document.getElementsByClassName('savedProjects');
 
+	//find the selected project by looping until one is checked
 	for(var i=0; inputElements[i]; ++i){
 		if(inputElements[i].checked){
         	var selectedProjectNumber = i;
@@ -19,14 +21,39 @@ function getSelected(){
       	}
 	}
 
+	//pull the array of saved projects
 	var catologueArray = JSON.parse(localStorage.getItem('projectList'));
 
+	//return the selected project within the array
 	return catologueArray[selectedProjectNumber];
 }
 
+//opens the tabs
 function openProject(project){
 	chrome.tabs.create({ url: project.sheetsURL});
 	chrome.tabs.create({ url: project.trackerURL });
+}
+
+//return the selected project's array index
+function getSelectedIndex(){
+	//create an array of all the input elements
+	var inputElements = document.getElementsByClassName('savedProjects');
+
+	//find the selected project by looping until one is checked
+	for(var i=0; inputElements[i]; ++i){
+		if(inputElements[i].checked){
+        	var selectedProjectNumber = i;
+        	break;
+      	}
+	}
+
+	//return the selected project index
+	return selectedProjectNumber;
+}
+
+function deleteProject(projectNum){
+	var catologueArray = JSON.parse(localStorage.getItem('projectList'));
+	catologueArray.splice(index, projectNum);
 }
 
 //generates the form element
@@ -74,8 +101,14 @@ document.getElementById('newProject').addEventListener('click', function(){
 });
 
 document.getElementById('openProject').addEventListener('click', function(){
-	var selected = getSelected();
+	var selected = getSelectedProject();
 	openProject(selected);
+});
+
+document.getElementById('deleteProject').addEventListener('click', function(){
+	var selected = getSelectedIndex();
+	deleteProject(selected);
+	window.location.href="catalogue.html";	
 });
 
 console.log(localStorage.getItem('projectList'));
