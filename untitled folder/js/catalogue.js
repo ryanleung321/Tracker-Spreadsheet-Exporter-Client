@@ -9,12 +9,24 @@ class project{
 }
 
 function getSelected(){
+	//create an array of all the input elements
 	var inputElements = document.getElementsByClassName('savedProjects');
-	
+
+	for(var i=0; inputElements[i]; ++i){
+		if(inputElements[i].checked){
+        	var selectedProjectNumber = i;
+        	break;
+      	}
+	}
+
+	var catologueArray = JSON.parse(localStorage.getItem('projectList'));
+
+	return catologueArray[selectedProjectNumber];
 }
 
 function openProject(project){
-
+	chrome.tabs.create({ url: project.sheetsURL});
+	chrome.tabs.create({ url: project.trackerURL });
 }
 
 //generates the form element
@@ -62,7 +74,8 @@ document.getElementById('newProject').addEventListener('click', function(){
 });
 
 document.getElementById('openProject').addEventListener('click', function(){
-
+	var selected = getSelected();
+	openProject(selected);
 });
 
 console.log(localStorage.getItem('projectList'));
@@ -71,13 +84,10 @@ var catologueArray = JSON.parse(localStorage.getItem('projectList'));
 
 //display message for no saved projects
 if (catologueArray === null) {
-	document.getElementById("tester").innerHTML = "No Projects Currently Saved";
+	document.getElementById('tester').innerHTML = "No Projects Currently Saved";
 }
 
-
 document.getElementById('tester').appendChild(makeForm(catologueArray));
-
-
 
 
 
