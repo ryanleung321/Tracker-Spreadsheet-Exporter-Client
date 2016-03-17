@@ -1,3 +1,5 @@
+"use strict";
+
 class project{
 //name is name, sheetsURL is url of project spreadsheet, trackerURL is tracker url, daysActive is an array comprised of bools that keeps track of days active
 	constructor(name, sheetsURL, trackerURL, daysActive){
@@ -22,10 +24,10 @@ function getSelectedProject(){
 	}
 
 	//pull the array of saved projects
-	var catologueArray = JSON.parse(localStorage.getItem('projectList'));
+	var catalogueArray = JSON.parse(localStorage.getItem('projectList'));
 
 	//return the selected project within the array
-	return catologueArray[selectedProjectNumber];
+	return catalogueArray[selectedProjectNumber];
 }
 
 //opens the tabs
@@ -52,8 +54,9 @@ function getSelectedIndex(){
 }
 
 function deleteProject(projectNum){
-	var catologueArray = JSON.parse(localStorage.getItem('projectList'));
-	catologueArray.splice(index, projectNum);
+	var catalogueArray = JSON.parse(localStorage.getItem('projectList'));
+	catalogueArray.splice(projectNum, 1);
+	localStorage.setItem('projectList', JSON.stringify(catalogueArray));
 }
 
 //generates the form element
@@ -84,7 +87,7 @@ function makeForm(array){
 		label.appendChild(document.createTextNode(array[i].name));
 
 		//create a linebreak element
-		linebreak = document.createElement("br");
+		var linebreak = document.createElement("br");
 		//append to the end of the label
 		label.appendChild(linebreak)
 
@@ -108,19 +111,25 @@ document.getElementById('openProject').addEventListener('click', function(){
 document.getElementById('deleteProject').addEventListener('click', function(){
 	var selected = getSelectedIndex();
 	deleteProject(selected);
-	window.location.href="catalogue.html";	
+	window.location.href="popup.html";	
 });
 
 console.log(localStorage.getItem('projectList'));
 
-var catologueArray = JSON.parse(localStorage.getItem('projectList'));
+var catalogueArray = JSON.parse(localStorage.getItem('projectList'));
+
+//
+if (catalogueArray.length === 0){
+	catalogueArray = null;
+}
+
 
 //display message for no saved projects
-if (catologueArray === null) {
+if (catalogueArray === null) {
 	document.getElementById('tester').innerHTML = "No Projects Currently Saved";
 }
 
-document.getElementById('tester').appendChild(makeForm(catologueArray));
+document.getElementById('tester').appendChild(makeForm(catalogueArray));
 
 
 
