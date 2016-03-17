@@ -89,7 +89,7 @@ function makeForm(array){
 		//create a linebreak element
 		var linebreak = document.createElement("br");
 		//append to the end of the label
-		label.appendChild(linebreak)
+		label.appendChild(linebreak);
 
 		//Add to the form
 		form.appendChild(label);

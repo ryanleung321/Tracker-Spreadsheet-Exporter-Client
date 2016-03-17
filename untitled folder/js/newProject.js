@@ -10,6 +10,33 @@ class project{
 	}
 }
 
+//generates additional input fields
+function addInput(){
+	//create the form element
+	var form = document.createElement('form');
+
+	//create the input item
+	var textInput = document.createElement('input');
+
+	//set radio button attributes
+	textInput.setAttribute('type', 'text');
+	textInput.setAttribute('size', '35');
+	textInput.setAttribute('name', 'text');
+
+	//group the buttons into a class
+	textInput.setAttribute('class', 'newTextInput');
+
+	//create a linebreak element
+	var linebreak = document.createElement("br");
+	//append to the end of the label
+	textInput.appendChild(linebreak);
+
+	//Add to the form
+	form.appendChild(textInput);
+
+	document.getElementById('additionalFields').appendChild(form);
+}
+
 //append values to storage
 function appendToStorage(key, data){
     var old = localStorage.getItem(key);
@@ -55,6 +82,8 @@ function addProject() {
 	console.log(newProject); //should log newProject object
 }
 
+document.getElementById('addFieldButton').addEventListener('click', addInput);
+
 //runs addProject on click
 document.getElementById('submitButton').addEventListener('click', function(){
 	//check for previous projectList entries, create one if none
@@ -83,3 +112,4 @@ console.log(localStorage.getItem('projectList'));
 document.getElementById('catalogueButton').addEventListener('click', function(){
 	window.location.href="popup.html";
 });
+
