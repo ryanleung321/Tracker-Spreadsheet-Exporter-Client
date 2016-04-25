@@ -1,5 +1,4 @@
-# autotab
-opens tabs for you
+# Pivotal Porter
 By Ryan 
 
-STUFF!
+Ports Pivotal Tracker stories over from Tracker to Google Sheets
