@@ -1,10 +1,5 @@
 "use strict";
 
-// Name:	pivotal-port-web-service.cfapps.io
-// Address: 52.0.145.236
-// Name:	pivotal-port-web-service.cfapps.io
-// Address: 54.208.138.128
-
 //declare some variables
 var socket = null;
 var isopen = false;
@@ -36,7 +31,7 @@ window.onload = function() {
 
 	//error for when the connection is closed
 	socket.onclose = function(e) {
-		document.getElementById('errorMessageField').innerHTML = "An error occured and the connection was closed. Please make sure your spreadsheet is shared with tribalscale@pivotal-port.iam.gserviceaccount.com";
+		document.getElementById('errorMessageField').innerHTML = "An error occured and the connection was closed";
 		console.log("Connection closed.");
 		socket = null;
 		isopen = false;
@@ -158,6 +153,7 @@ function deleteProject(projectNum){
 
 //generates the form element
 function makeForm(array){
+
 	//create the form element
 	var form = document.createElement('form');
 
@@ -197,7 +193,6 @@ function makeForm(array){
 
 //bind new project page to add project button
 document.getElementById('newProject').addEventListener('click', function(){
-	// window.location.href="newProject.html";
 	chrome.tabs.create({url: chrome.extension.getURL('newProject.html')});
 });
 
@@ -210,31 +205,45 @@ document.getElementById('openProject').addEventListener('click', function(){
 //deletes selected project with delete button
 document.getElementById('deleteProject').addEventListener('click', function(){
 	var selected = getSelectedIndex();
-	deleteProject(selected);
-	window.location.href="popup.html";	
+	if (selected === undefined){
+		console.log("User did not select a project");
+		document.getElementById('errorMessageField').innerHTML = "Please select a project";
+	} else {
+		localStorage.setItem('deleteThisProject', JSON.stringify(selected));
+		window.location.href="deleteProject.html";			
+	}
 });
 
-//calls sendToServer on click
-document.getElementById('transferStories').addEventListener('click', sendToServer)
-
-// console.log(localStorage.getItem('projectList'));
 
 //creates the catalogue array
 var catalogueArray = JSON.parse(localStorage.getItem('projectList'));
 
-//makes the catalogue array null if it is empty
-if (catalogueArray.length === 0){
-	catalogueArray = null;
-}
-
 
 //display message for no saved projects
 if (catalogueArray === null) {
-	document.getElementById('catalogueField').innerHTML = "No Projects Currently Saved";
+	document.getElementById('catalogueField').innerHTML = "No projects currently saved";
 }
 
 //fill the area with a catalogue if there is one
-document.getElementById('catalogueField').appendChild(makeForm(catalogueArray));
+else document.getElementById('catalogueField').appendChild(makeForm(catalogueArray));
+
+//calls sendToServer on click
+document.getElementById('transferStories').addEventListener('click', sendToServer)
+
+document.getElementById('editProject').addEventListener('click', function(){
+	var selectedProject = getSelectedProject();
+	var selectedProjectID = getSelectedIndex();
+	if (selectedProject === undefined){
+		console.log("User did not select a project");
+		document.getElementById('errorMessageField').innerHTML = "Please select a project";
+	} else {
+		localStorage.setItem('editThisProjectID', JSON.stringify(selectedProjectID));
+		localStorage.setItem('editThisProject', JSON.stringify(selectedProject));
+		console.log(localStorage.getItem('editThisProject'));
+		chrome.tabs.create({url: chrome.extension.getURL('editProject.html')});		
+	}
+
+});
 
 
 

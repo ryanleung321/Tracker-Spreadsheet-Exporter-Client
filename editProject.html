@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Pivotal Port</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 120%;
+        min-width: 300px;
+      }
+      #status {
+        white-space: pre;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 1000px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <form id="popupForm" >
+      Project Name:
+      <input type="text" id="projectName" name="projectName" size="35"><br><br>
+      Sheets URL:
+      <input type="text" id="sheetsURL" name="sheetsURL" size="35"><br><br>
+      Tracker URL:
+      <input type="text" id="trackerURL" name="trackerURL" size="35"><br>
+
+    </form>
+    <br>
+    <button id="submitButton" type="button">Submit Changes</button>   
+    <button id="catalogueButton" type="button">Back to Catalogue</button>
+    <script language="javascript" src="js/editProject.js"></script>  
+
+  </body>
+</html>
+

@@ -1,5 +1,13 @@
 "use strict";
 
+window.onload = function(){
+	var project = JSON.parse(localStorage.getItem('editThisProject'));
+	console.log(project);
+	document.getElementById('projectName').value = project.name
+	document.getElementById('trackerURL').value = project.trackerURL
+	document.getElementById('sheetsURL').value = project.sheetsURL
+}
+
 class project{
 //name is name, sheetsURL is url of project spreadsheet, trackerURL is tracker url
 	constructor(name, sheetsURL, trackerURL){
@@ -10,25 +18,26 @@ class project{
 }
 
 //append values to an array stored in localStorage
-function appendToStoredArray(key, data){
+function appendToStoredArray(key, data, id){
 	var array = JSON.parse(localStorage.getItem(key));
-	array.push(data);
+	array[id] = data
 	localStorage.setItem(key, JSON.stringify(array));
 	console.log(localStorage.getItem(key)); //should log json string of array
 }
 
 //invoked on submitButton click
-function addProject() {
+function updateProject() {
 	//pull values by ID from html form
 	var name = document.getElementById("projectName").value;
 	var sheetsURL = document.getElementById("sheetsURL").value;
 	var trackerURL = document.getElementById("trackerURL").value;
+	var projectID = JSON.parse(localStorage.getItem('editThisProjectID'))
 
 	//creating the project object
 	var newProject = new project(name, sheetsURL, trackerURL);
 
 	//append new project to projectList array
-	appendToStoredArray('projectList', newProject);
+	appendToStoredArray('projectList', newProject, projectID);
 
 	console.log(newProject); //should log newProject object
 }
@@ -42,14 +51,16 @@ document.getElementById('submitButton').addEventListener('click', function(){
 	}
 	//check for length of array before addition
 	var oldlength = (JSON.parse(localStorage.getItem('projectList'))).length;
-	addProject();
+	console.log(oldlength);
+	updateProject();
 	//check for length of array after addition
 	var newlength = (JSON.parse(localStorage.getItem('projectList'))).length;
+	console.log(newlength);
 
 	//successful if new array contains more entries
-	if (newlength > oldlength){
-		alert("New project successfully added");
-		window.location.href="newProject.html";
+	if (newlength === oldlength){
+		alert("Project successfully updated");
+		window.location.href="popup.html";
 	}
 	else alert("failed");
 });
