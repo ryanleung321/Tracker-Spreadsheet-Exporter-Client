@@ -1,5 +1,6 @@
 "use strict";
 
+//fills in form fields with project to edit 
 window.onload = function(){
 	var project = JSON.parse(localStorage.getItem('editThisProject'));
 	console.log(project);
@@ -17,8 +18,8 @@ class project{
 	}
 }
 
-//append values to an array stored in localStorage
-function appendToStoredArray(key, data, id){
+//update values to an array stored in localStorage
+function updateStoredArray(key, data, id){
 	var array = JSON.parse(localStorage.getItem(key));
 	array[id] = data
 	localStorage.setItem(key, JSON.stringify(array));
@@ -31,13 +32,15 @@ function updateProject() {
 	var name = document.getElementById("projectName").value;
 	var sheetsURL = document.getElementById("sheetsURL").value;
 	var trackerURL = document.getElementById("trackerURL").value;
+
+	//gets project ID
 	var projectID = JSON.parse(localStorage.getItem('editThisProjectID'))
 
 	//creating the project object
 	var newProject = new project(name, sheetsURL, trackerURL);
 
 	//append new project to projectList array
-	appendToStoredArray('projectList', newProject, projectID);
+	updateStoredArray('projectList', newProject, projectID);
 
 	console.log(newProject); //should log newProject object
 }
@@ -57,7 +60,7 @@ document.getElementById('submitButton').addEventListener('click', function(){
 	var newlength = (JSON.parse(localStorage.getItem('projectList'))).length;
 	console.log(newlength);
 
-	//successful if new array contains more entries
+	//successful if new array contains same ammount of entries
 	if (newlength === oldlength){
 		alert("Project successfully updated");
 		window.location.href="popup.html";

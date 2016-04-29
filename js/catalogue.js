@@ -11,6 +11,10 @@ window.onload = function() {
 
 	//connect to websocket location
 	socket = new WebSocket("wss://pivotalportwss.herokuapp.com//");
+
+	//use for debugging on localhost
+	// socket = new WebSocket("ws://0.0.0.0:9000");
+
     socket.binaryType = "arraybuffer";
 
     //log connection status on attempted connection
@@ -230,13 +234,17 @@ else document.getElementById('catalogueField').appendChild(makeForm(catalogueArr
 //calls sendToServer on click
 document.getElementById('transferStories').addEventListener('click', sendToServer)
 
+//edits project on click
 document.getElementById('editProject').addEventListener('click', function(){
 	var selectedProject = getSelectedProject();
 	var selectedProjectID = getSelectedIndex();
+
+	//checks if project was selected
 	if (selectedProject === undefined){
 		console.log("User did not select a project");
 		document.getElementById('errorMessageField').innerHTML = "Please select a project";
 	} else {
+		//saves projectID and project in localstorage
 		localStorage.setItem('editThisProjectID', JSON.stringify(selectedProjectID));
 		localStorage.setItem('editThisProject', JSON.stringify(selectedProject));
 		console.log(localStorage.getItem('editThisProject'));
