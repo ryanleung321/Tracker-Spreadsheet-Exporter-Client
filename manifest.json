@@ -1,5 +1,5 @@
 {
-  "name": "AutoQA tab thing",
+  "name": "Pivotal Port",
   
   "version": "0.1",
   
@@ -7,16 +7,13 @@
 
   "browser_action": {
     "default_icon": "icon.png",
-    "default_title": "click me",
+    "default_title": "Click to begin porting",
     "default_popup": "popup.html"
   },
 
-
   "permissions":[
     "tabs", 
-    "alarms", 
-    "activeTab", 
-    "https://ajax.googleapis.com/"
+    "https://ajax.googleapis.com/*"
   ]
 
 }
