@@ -1,0 +1,35 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>Pivotal Port</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 120%;
+        min-width: 300px;
+      }
+      #status {
+        white-space: pre;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        width: 1000px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <p>Please input the following items to start using Pivotal Port:</p>
+    <form id="popupForm" >
+      Google Oauth Client Email: 
+      <input type="text" id="clientEmail" name="clientEmail" size="35"><br>
+
+    </form>
+    <br>
+    <button id="getCredentialsButton" type="button">Get Credentials</button>   
+    <button id="nextButton" type="button">Next</button>
+    <script language="javascript" src="js/googleAuth1.js"></script>  
+
+  </body>
+</html>
+

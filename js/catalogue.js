@@ -11,6 +11,7 @@ window.onload = function() {
 
 	//connect to websocket location
 	socket = new WebSocket("wss://pivotalportwss.herokuapp.com//");
+	// socket = new WebSocket("ws://localhost:9000");
 
 	//use for debugging on localhost
 	// socket = new WebSocket("ws://0.0.0.0:9000");
@@ -86,6 +87,9 @@ function sendToServer() {
 		// object.addOp = additionalOptions;
 		object.trURL = selectedProject.trackerURL;
 		object.shURL = selectedProject.sheetsURL;
+		object.tauth = JSON.parse(localStorage.getItem('trackerAuth'));
+		object.email = JSON.parse(localStorage.getItem('clientEmail'));
+		object.prkey = JSON.parse(localStorage.getItem('privateKey'));
 
 		//send object to python web socket after converting to JSON object
 		socket.send(JSON.stringify(object));
@@ -195,6 +199,26 @@ function makeForm(array){
 	return form;
 }
 
+var trackerAuth = JSON.parse(localStorage.getItem('trackerAuth'));
+var clientEmail = JSON.parse(localStorage.getItem('clientEmail'));
+var privateKey = JSON.parse(localStorage.getItem('privateKey'));
+
+console.log(trackerAuth);
+console.log(clientEmail);
+console.log(privateKey);
+
+if (trackerAuth === null){
+	window.location.href = "trackerAuth.html"
+};
+
+if (clientEmail === null && trackerAuth != null){
+	window.location.href = "googleAuth1.html"
+};
+
+if (privateKey === null && trackerAuth != null && clientEmail != null){
+	window.location.href = "googleAuth2.html"
+};
+
 //bind new project page to add project button
 document.getElementById('newProject').addEventListener('click', function(){
 	chrome.tabs.create({url: chrome.extension.getURL('newProject.html')});
@@ -215,13 +239,12 @@ document.getElementById('deleteProject').addEventListener('click', function(){
 	} else {
 		localStorage.setItem('deleteThisProject', JSON.stringify(selected));
 		window.location.href="deleteProject.html";			
-	}
+	};
 });
-
 
 //creates the catalogue array
 var catalogueArray = JSON.parse(localStorage.getItem('projectList'));
-
+console.log(catalogueArray);
 
 //display message for no saved projects
 if (catalogueArray === null) {
@@ -232,7 +255,7 @@ if (catalogueArray === null) {
 else document.getElementById('catalogueField').appendChild(makeForm(catalogueArray));
 
 //calls sendToServer on click
-document.getElementById('transferStories').addEventListener('click', sendToServer)
+document.getElementById('transferStories').addEventListener('click', sendToServer);
 
 //edits project on click
 document.getElementById('editProject').addEventListener('click', function(){
@@ -244,20 +267,22 @@ document.getElementById('editProject').addEventListener('click', function(){
 		console.log("User did not select a project");
 		document.getElementById('errorMessageField').innerHTML = "Please select a project";
 	} else {
-		//saves projectID and project in localstorage
+		//saves projectID and project in localStorage
 		localStorage.setItem('editThisProjectID', JSON.stringify(selectedProjectID));
 		localStorage.setItem('editThisProject', JSON.stringify(selectedProject));
 		console.log(localStorage.getItem('editThisProject'));
 		chrome.tabs.create({url: chrome.extension.getURL('editProject.html')});		
-	}
+	};
+});
 
+document.getElementById('editAuth').addEventListener('click', function(){
+	window.location.href = 'trackerAuth.html';
 });
 
 
-
-
-
-
+String.prototype.escapeSpecialChars = function() {
+    return this.replace(/\n/g, "\\\\n").replace(/\r/g, "\\\\r").replace(/\t/g, "\\\\t");
+};
 
 
 
